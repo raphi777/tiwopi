@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "151493773687",
+    "project_id": "tiwopi",
+    "storage_bucket": "tiwopi.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:151493773687:android:dc804f066b2227315b7972",
+        "android_client_info": {
+          "package_name": "com.ryf.tiwopi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "151493773687-fkmi00gbbcf72vkgrbf4p019318hirpn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBXlBnRLVeuOk1q0aWfkYaAu68wTlZ5j-c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "151493773687-fkmi00gbbcf72vkgrbf4p019318hirpn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

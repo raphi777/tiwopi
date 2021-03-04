@@ -1,4 +1,4 @@
-package com.example.tiwopi
+package com.ryf.tiwopi
 
 import io.flutter.embedding.android.FlutterActivity
 
