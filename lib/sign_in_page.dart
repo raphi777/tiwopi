@@ -24,12 +24,13 @@ class SignInPage extends StatelessWidget {
             ),
           ),
           ElevatedButton(
-            onPressed: () {
-              context.read<AuthenticationService>().signIn(
+              onPressed: () {
+                context.read<AuthenticationService>().signIn(
                   email: emailController.text.trim(),
-                  password: passwordController.text.trim());
-            },
-            child: Text("Sign in"),
+                  password: passwordController.text.trim()
+                );
+              },
+              child: Text("Sign in"),
           )
         ],
       ),
