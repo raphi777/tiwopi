@@ -6,6 +6,8 @@ import 'package:tiwopi/authentication_service.dart';
 import 'package:tiwopi/home_page.dart';
 import 'package:tiwopi/sign_in_page.dart';
 
+import 'authentication_widget.dart';
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -31,12 +33,24 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.blue,
             visualDensity: VisualDensity.adaptivePlatformDensity,
           ),
+          home: AuthenticationWidget(),
         ),
     );
+    /*return Provider<AuthenticationService>(
+      builder: (_) => AuthenticationService(FirebaseAuth.instance),
+      child: MaterialApp(
+        title: 'TiWoPi',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
+        home: AuthenticationWidget(),
+      ),
+    );*/
   }
 }
 
-class AuthenticationWrapper extends StatelessWidget {
+/*class AuthenticationWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final firebaseUser = context.watch<User>();
@@ -46,4 +60,4 @@ class AuthenticationWrapper extends StatelessWidget {
     }
     return SignInPage();
   }
-}
+}*/
