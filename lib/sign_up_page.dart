@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tiwopi/authentication_service.dart';
 import 'package:provider/provider.dart';
-import 'package:tiwopi/sign_in_page.dart';
+import 'package:passwordfield/passwordfield.dart';
 
 class SignUpPage extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
@@ -11,7 +11,7 @@ class SignUpPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('TiWoPi'),
+        title: const Text('Register'),
       ),
       body: Column(
         children: [
@@ -21,11 +21,11 @@ class SignUpPage extends StatelessWidget {
               labelText: "Email",
             ),
           ),
-          TextField(
+          PasswordField(
             controller: passwordController,
-            decoration: InputDecoration(
-              labelText: "Password",
-            ),
+            hintText: "Password",
+            pattern: r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$',
+            errorMessage: "Password must have a minimum of eight characters, at least one letter\nand one number!",
           ),
           ElevatedButton(
             onPressed: () {

@@ -2,16 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:tiwopi/authentication_service.dart';
 import 'package:provider/provider.dart';
 import 'package:tiwopi/sign_up_page.dart';
+import 'package:passwordfield/passwordfield.dart';
 
 class SignInPage extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
+  Future<void> _signIn(BuildContext context, TextEditingController emailController, TextEditingController passwordController) async {
+    final signInResult = await context.read<AuthenticationService>().signIn(
+      email: emailController.text.trim(),
+      password: passwordController.text.trim()
+    );
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(signInResult.toString())));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('TiWoPi'),
+        title: const Text('Sign In'),
       ),
       body: Column(
         children: [
@@ -21,18 +30,13 @@ class SignInPage extends StatelessWidget {
               labelText: "Email",
             ),
           ),
-          TextField(
+          PasswordField(
             controller: passwordController,
-            decoration: InputDecoration(
-              labelText: "Password",
-            ),
+            hintText: "Password",
           ),
           ElevatedButton(
               onPressed: () {
-                context.read<AuthenticationService>().signIn(
-                  email: emailController.text.trim(),
-                  password: passwordController.text.trim()
-                );
+                _signIn(context, emailController, passwordController);
               },
               child: Text("Sign in"),
           ),
