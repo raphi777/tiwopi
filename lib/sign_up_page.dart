@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:tiwopi/authentication_service.dart';
 import 'package:provider/provider.dart';
-import 'package:tiwopi/sign_up_page.dart';
+import 'package:tiwopi/sign_in_page.dart';
 
-class SignInPage extends StatelessWidget {
+class SignUpPage extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
@@ -28,18 +28,15 @@ class SignInPage extends StatelessWidget {
             ),
           ),
           ElevatedButton(
-              onPressed: () {
-                context.read<AuthenticationService>().signIn(
+            onPressed: () {
+              context.read<AuthenticationService>().signUp(
                   email: emailController.text.trim(),
                   password: passwordController.text.trim()
-                );
-              },
-              child: Text("Sign in"),
+              );
+              Navigator.pop(context);
+            },
+            child: Text("Register"),
           ),
-          ElevatedButton(
-            onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => SignUpPage())),
-            child: Text("Go to Register"),
-          )
         ],
       ),
     );
