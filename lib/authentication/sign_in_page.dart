@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:tiwopi/authentication_service.dart';
+import 'package:tiwopi/authentication/authentication_service.dart';
 import 'package:provider/provider.dart';
-import 'package:tiwopi/sign_up_page.dart';
+import 'package:tiwopi/authentication/sign_up_page.dart';
 import 'package:passwordfield/passwordfield.dart';
 
 class SignInPage extends StatelessWidget {

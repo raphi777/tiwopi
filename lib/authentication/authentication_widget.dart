@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:tiwopi/authentication_service.dart';
+import 'package:tiwopi/authentication/authentication_service.dart';
 import 'package:tiwopi/home_page.dart';
-import 'package:tiwopi/sign_in_page.dart';
+import 'package:tiwopi/authentication/sign_in_page.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
