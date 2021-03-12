@@ -15,17 +15,23 @@ class SignUpPage extends StatelessWidget {
       ),
       body: Column(
         children: [
-          TextField(
-            controller: emailController,
-            decoration: InputDecoration(
-              labelText: "Email",
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              controller: emailController,
+              decoration: InputDecoration(
+                labelText: "Email",
+              ),
             ),
           ),
-          PasswordField(
-            controller: passwordController,
-            hintText: "Password",
-            pattern: r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$',
-            errorMessage: "Password must have a minimum of eight characters, at least one letter\nand one number!",
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: PasswordField(
+              controller: passwordController,
+              hintText: "Password",
+              pattern: r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$',
+              errorMessage: "Password must have a minimum of eight characters, at least one letter\nand one number!",
+            ),
           ),
           ElevatedButton(
             onPressed: () {

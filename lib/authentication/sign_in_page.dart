@@ -24,15 +24,21 @@ class SignInPage extends StatelessWidget {
       ),
       body: Column(
         children: [
-          TextField(
-            controller: emailController,
-            decoration: InputDecoration(
-              labelText: "Email",
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              controller: emailController,
+              decoration: InputDecoration(
+                labelText: "Email",
+              ),
             ),
           ),
-          PasswordField(
-            controller: passwordController,
-            hintText: "Password",
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: PasswordField(
+              controller: passwordController,
+              hintText: "Password",
+            ),
           ),
           ElevatedButton(
               onPressed: () {
