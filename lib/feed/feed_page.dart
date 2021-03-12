@@ -5,9 +5,11 @@ class FeedPage extends StatefulWidget {
   _FeedPageState createState() => _FeedPageState();
 }
 
-class _FeedPageState extends State<FeedPage> {
+class _FeedPageState extends State<FeedPage>
+    with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       backgroundColor: Colors.grey.shade300,
       appBar: AppBar(
@@ -35,4 +37,7 @@ class _FeedPageState extends State<FeedPage> {
           }),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

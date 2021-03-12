@@ -8,9 +8,21 @@ class SettingsPage extends StatefulWidget {
   _SettingsPageState createState() => _SettingsPageState();
 }
 
-class _SettingsPageState extends State<SettingsPage> {
+class _SettingsPageState extends State<SettingsPage> with AutomaticKeepAliveClientMixin {
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  Future<void> _signOut(BuildContext context) async {
+    try {
+      final _auth = Provider.of<AuthenticationService>(context, listen: false);
+      await _auth.signOut();
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       appBar: AppBar(
         title: Text("Settings"),
@@ -19,7 +31,7 @@ class _SettingsPageState extends State<SettingsPage> {
         child: Column(
           children: [
             Text(
-                auth.currentUser.email.toString() + " " + auth.currentUser.uid),
+                _auth.currentUser.email.toString() + " " + _auth.currentUser.uid),
             ElevatedButton(
                 onPressed: () => _signOut(context), child: Text("Sign out")),
           ],
@@ -27,15 +39,9 @@ class _SettingsPageState extends State<SettingsPage> {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
 
-final FirebaseAuth auth = FirebaseAuth.instance;
 
-Future<void> _signOut(BuildContext context) async {
-  try {
-    final auth = Provider.of<AuthenticationService>(context, listen: false);
-    await auth.signOut();
-  } catch (e) {
-    print(e);
-  }
-}
