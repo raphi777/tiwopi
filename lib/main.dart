@@ -2,11 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tiwopi/authentication_service.dart';
-import 'package:tiwopi/home_page.dart';
-import 'package:tiwopi/sign_in_page.dart';
-
-import 'authentication_widget.dart';
+import 'package:tiwopi/authentication/authentication_service.dart';
+import 'package:tiwopi/authentication/authentication_widget.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,34 +27,11 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
           title: 'TiWoPi',
           theme: ThemeData(
-            primarySwatch: Colors.blue,
+            primarySwatch: Colors.purple,
             visualDensity: VisualDensity.adaptivePlatformDensity,
           ),
           home: AuthenticationWidget(),
         ),
     );
-    /*return Provider<AuthenticationService>(
-      builder: (_) => AuthenticationService(FirebaseAuth.instance),
-      child: MaterialApp(
-        title: 'TiWoPi',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-        ),
-        home: AuthenticationWidget(),
-      ),
-    );*/
   }
 }
-
-/*class AuthenticationWrapper extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final firebaseUser = context.watch<User>();
-
-    if (firebaseUser != null) {
-      return HomePage();
-    }
-    return SignInPage();
-  }
-}*/
