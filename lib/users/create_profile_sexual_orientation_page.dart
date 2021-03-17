@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tiwopi/users/create_profile_show_genders_page.dart';
 import 'package:tiwopi/users/tiwopi_user.dart';
 
 class CreateProfileSexualOrientationPage extends StatefulWidget {
@@ -71,12 +72,11 @@ class _CreateProfileSexualOrientationPageState
               padding: const EdgeInsets.all(30.0),
               child: ElevatedButton(
                   onPressed: () {
-                    print(_getSexualOrientation(lastIndex));
                     if (lastIndex != null) {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => CreateProfileSexualOrientationPage(
+                              builder: (context) => CreateProfileShowGendersPage(
                                   new TiwopiUser(
                                       email: widget.tiwopiUser.email,
                                       name: widget.tiwopiUser.name,
