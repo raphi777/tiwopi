@@ -49,7 +49,14 @@ class SignUpPage extends StatelessWidget {
                     MaterialPageRoute(
                         builder: (context) => CreateProfileNamePage(
                             new TiwopiUser(
-                                email: emailController.text.trim()))));
+                                email: emailController.text.trim(),
+                                name: "",
+                                ownGender: "",
+                                ownAge: DateTime.now(),
+                                soughtAge: 0,
+                                soughtGender: "",
+                                sexualOrientation: "",
+                                interests: []))));
               } else {
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                     content: Text("Please enter E-Mail and Password.")));

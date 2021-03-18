@@ -69,15 +69,13 @@ class _CreateProfileGenderPageState extends State<CreateProfileGenderPage> {
               child: ElevatedButton(
                   onPressed: () {
                     if (lastIndex != null) {
+                      widget.tiwopiUser.ownGender = _getGender(lastIndex);
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => CreateProfileSexualOrientationPage(
-                                  new TiwopiUser(
-                                      email: widget.tiwopiUser.email,
-                                      name: widget.tiwopiUser.name,
-                                      ownAge: widget.tiwopiUser.ownAge,
-                                      ownGender: _getGender(lastIndex)))));
+                              builder: (context) =>
+                                  CreateProfileSexualOrientationPage(
+                                      widget.tiwopiUser)));
                     }
                   },
                   child: Text("Continue")),

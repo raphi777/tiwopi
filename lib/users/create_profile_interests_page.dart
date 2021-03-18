@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:tiwopi/users/tag_item.dart';
 import 'package:tiwopi/users/tiwopi_user.dart';
 import 'package:flutter_tags/flutter_tags.dart';
+import 'create_profile_add_record_page.dart';
 
 class CreateProfileInterestsPage extends StatefulWidget {
   final TiwopiUser tiwopiUser;
@@ -16,7 +16,7 @@ class CreateProfileInterestsPage extends StatefulWidget {
 class _CreateProfileInterestsPageState
     extends State<CreateProfileInterestsPage> {
   final GlobalKey<TagsState> _globalKey = GlobalKey<TagsState>();
-  List<TagItem> _tagItems = [];
+  List<String> _interests = [];
   List _items = [
     Item(title: "Foodie"),
     Item(title: "Music"),
@@ -26,23 +26,6 @@ class _CreateProfileInterestsPageState
     Item(title: "Board Games"),
     Item(title: "Vegetarian")
   ];
-
-  bool _interestsValid(List interests) {
-    int cnt = 0;
-    print(interests[0].active);
-    for (var i = 0; i < interests.length; i++) {
-      if (interests[i].active == true) {
-        cnt++;
-      }
-    }
-    if (cnt <= 5 && cnt >= 3) {
-      print("interests valid");
-      return true;
-    } else {
-      print("abc");
-    }
-    return false;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -81,11 +64,11 @@ class _CreateProfileInterestsPageState
                   onPressed: (item) {
                     // add item to _tagItem List if selected, if deselected find item and remove
                     if (item.active == true) {
-                      _tagItems.add(TagItem(index: index, title: item.title, active: item.active));
+                      _interests.add(item.title);
                     } else {
-                      for (var i = 0 ; i < _tagItems.length ; i++) {
-                        if (_tagItems[i].index == index) {
-                          _tagItems.removeAt(i);
+                      for (var i = 0; i < _interests.length; i++) {
+                        if (_interests[i] == item.title) {
+                          _interests.removeAt(i);
                         }
                       }
                     }
@@ -97,10 +80,17 @@ class _CreateProfileInterestsPageState
               padding: const EdgeInsets.all(30.0),
               child: ElevatedButton(
                   onPressed: () {
-                    for (var i = 0; i < _tagItems.length; i++){
-                      print(_tagItems[i].title + " " + _tagItems[i].active.toString());
+                    if (_interests.length > 2 && _interests.length < 6) {
+                      widget.tiwopiUser.interests = _interests;
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => CreateProfileAddRecordPage(
+                            widget.tiwopiUser,
+                          ),
+                        ),
+                      );
                     }
-                    //if (_interestsValid(_tagItems)) {}
                   },
                   child: Text("Continue")),
             ),
@@ -109,13 +99,4 @@ class _CreateProfileInterestsPageState
       ),
     );
   }
-
-  /*@override afterFirstLayout(BuildContext context) {
-    _tagItemsInitialize(_items);
-  }
-  void _tagItemsInitialize(List items) {
-    for (var i = 0; i < items.length; i++) {
-      _tagItems.add(TagItem(index: i, title: items[i].title, active: items[i].active));
-    }
-  }*/
 }

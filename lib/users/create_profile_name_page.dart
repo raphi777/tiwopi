@@ -42,13 +42,12 @@ class CreateProfileNamePage extends StatelessWidget {
           ElevatedButton(
             onPressed: () {
               if (nameController.text.isNotEmpty) {
+                tiwopiUser.name = nameController.text.trim();
                 Navigator.push(
                     context,
                     MaterialPageRoute(
                         builder: (context) => CreateProfileAgePage(
-                            new TiwopiUser(
-                                email: tiwopiUser.email,
-                                name: nameController.text.trim()))));
+                            tiwopiUser)));
               } else {
                 ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text("Please enter your first name.")));

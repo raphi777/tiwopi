@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class AddUser extends StatelessWidget {
+/*class AddUser extends StatelessWidget {
   final String email;
   final String name;
   final String ownGender;
@@ -9,8 +9,8 @@ class AddUser extends StatelessWidget {
   final DateTime ownAge;
   final int soughtAge;
 
-  AddUser({this.email, this.name, this.ownGender, this.soughtGender, this.ownAge,
-      this.soughtAge});
+  AddUser({this.email="", this.name="", this.ownGender="", this.soughtGender="", this.ownAge,
+      this.soughtAge=0});
 
   @override
   Widget build(BuildContext context) {
@@ -32,4 +32,4 @@ class AddUser extends StatelessWidget {
 
     return Container();
   }
-}
+}*/

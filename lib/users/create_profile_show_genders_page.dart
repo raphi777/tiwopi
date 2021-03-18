@@ -69,19 +69,13 @@ class _CreateProfileShowGendersPageState
               child: ElevatedButton(
                   onPressed: () {
                     if (lastIndex != null) {
+                      widget.tiwopiUser.soughtGender =
+                          _getSoughtGender(lastIndex);
                       Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) => CreateProfileInterestsPage(
-                            new TiwopiUser(
-                              email: widget.tiwopiUser.email,
-                              name: widget.tiwopiUser.name,
-                              ownAge: widget.tiwopiUser.ownAge,
-                              ownGender: widget.tiwopiUser.ownGender,
-                              sexualOrientation:
-                                  widget.tiwopiUser.sexualOrientation,
-                              soughtGender: _getSoughtGender(lastIndex),
-                            ),
+                            widget.tiwopiUser,
                           ),
                         ),
                       );

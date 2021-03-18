@@ -128,17 +128,15 @@ class CreateProfileAgePage extends StatelessWidget {
                     int.parse(yearController.text),
                     int.parse(monthController.text),
                     int.parse(dayController.text))) {
+                  tiwopiUser.ownAge = new DateTime(
+                      int.parse(yearController.text),
+                      int.parse(monthController.text),
+                      int.parse(dayController.text));
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => CreateProfileGenderPage(
-                              new TiwopiUser(
-                                  email: tiwopiUser.email,
-                                  name: tiwopiUser.name,
-                                  ownAge: new DateTime(
-                                      int.parse(yearController.text),
-                                      int.parse(monthController.text),
-                                      int.parse(dayController.text))))));
+                          builder: (context) =>
+                              CreateProfileGenderPage(tiwopiUser)));
                 }
               } else {
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(

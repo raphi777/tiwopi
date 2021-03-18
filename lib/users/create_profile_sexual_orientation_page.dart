@@ -55,7 +55,12 @@ class _CreateProfileSexualOrientationPageState
               renderBorder: true,
               borderRadius: BorderRadius.circular(30),
               borderWidth: 5,
-              children: [Text("HETEROSEXUAL"), Text("HOMOSEXUAL"), Text("BISEXUAL"), Text("OTHER")],
+              children: [
+                Text("HETEROSEXUAL"),
+                Text("HOMOSEXUAL"),
+                Text("BISEXUAL"),
+                Text("OTHER")
+              ],
               isSelected: _selections,
               onPressed: (int index) {
                 setState(() {
@@ -73,16 +78,14 @@ class _CreateProfileSexualOrientationPageState
               child: ElevatedButton(
                   onPressed: () {
                     if (lastIndex != null) {
+                      widget.tiwopiUser.sexualOrientation =
+                          _getSexualOrientation(lastIndex);
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => CreateProfileShowGendersPage(
-                                  new TiwopiUser(
-                                      email: widget.tiwopiUser.email,
-                                      name: widget.tiwopiUser.name,
-                                      ownAge: widget.tiwopiUser.ownAge,
-                                      ownGender: widget.tiwopiUser.ownGender,
-                                      sexualOrientation: _getSexualOrientation(lastIndex),))));
+                              builder: (context) =>
+                                  CreateProfileShowGendersPage(
+                                      widget.tiwopiUser)));
                     }
                   },
                   child: Text("Continue")),
