@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:tiwopi/audio_recorder/playback_button.dart';
 import 'package:tiwopi/users/tiwopi_user.dart';
 import 'package:flutter_sound/flutter_sound.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -45,12 +46,7 @@ class _CreateProfileAddRecordPageState
               padding: const EdgeInsets.all(30.0),
               child: Row(
                 children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      print("record");
-                    },
-                    child: Text("Record"),
-                  ),
+                  RecordButton(),
                   SizedBox(
                     width: 20,
                   ),
@@ -62,12 +58,7 @@ class _CreateProfileAddRecordPageState
               padding: const EdgeInsets.all(30.0),
               child: Row(
                 children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      print("play");
-                    },
-                    child: Text('Play'),
-                  ),
+                  PlaybackButton(),
                   SizedBox(
                     width: 20,
                   ),
