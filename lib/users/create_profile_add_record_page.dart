@@ -1,9 +1,6 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:tiwopi/audio_recorder/playback_button.dart';
+import 'package:tiwopi/audio_recorder/audio_player_and_recorder.dart';
 import 'package:tiwopi/users/tiwopi_user.dart';
-import 'package:flutter_sound/flutter_sound.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 class CreateProfileAddRecordPage extends StatefulWidget {
   final TiwopiUser tiwopiUser;
@@ -17,7 +14,6 @@ class CreateProfileAddRecordPage extends StatefulWidget {
 
 class _CreateProfileAddRecordPageState
     extends State<CreateProfileAddRecordPage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,40 +40,19 @@ class _CreateProfileAddRecordPageState
             ),
             Padding(
               padding: const EdgeInsets.all(30.0),
-              child: Row(
-                children: [
-                  RecordButton(),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Text("... recorder"),
-                ],
-              ),
+              child: RecordButton(),
             ),
             Padding(
               padding: const EdgeInsets.all(30.0),
-              child: Row(
-                children: [
-                  PlaybackButton(),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Text('... player'),
-                ],
-              ),
+              child: PlaybackButton(),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(30.0),
+              child: ElevatedButton(onPressed: () {}, child: Text("Continue")),
             ),
           ],
         ),
       ),
     );
   }
-
-/*Future<void> _onUploadComplete() async {
-    FirebaseStorage firebaseStorage = FirebaseStorage.instance;
-    ListResult listResult =
-        await firebaseStorage.ref().child('upload-voice-firebase').list();
-    setState(() {
-      references = listResult.items;
-    });
-  }*/
 }

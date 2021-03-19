@@ -7,6 +7,7 @@ class TiwopiUser {
   int soughtAge;
   String sexualOrientation;
   List<String> interests;
+  String audioFilePath;
 
   TiwopiUser(
       {this.email,
@@ -16,5 +17,6 @@ class TiwopiUser {
       this.ownAge,
       this.soughtAge,
       this.sexualOrientation,
-      this.interests});
+      this.interests,
+      this.audioFilePath});
 }

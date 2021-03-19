@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:path/path.dart' as p;
 import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter/material.dart';
@@ -11,39 +10,23 @@ class PlaybackButton extends StatefulWidget {
 }
 
 class _PlaybackButtonState extends State<PlaybackButton> {
-  bool _isPlaying = false;
-  FlutterSoundPlayer flutterSoundPlayer = FlutterSoundPlayer();
 
-  void _stop() {
-    flutterSoundPlayer.closeAudioSession();
-  }
-
-  void _play() async {
+  Future<Track> _loadTrack() async {
     final directory = await getApplicationDocumentsDirectory();
     final filePath = p.join(directory.path, 'record01');
-    flutterSoundPlayer.openAudioSession();
-    flutterSoundPlayer.startPlayer(fromURI: filePath);
+    return new Track(trackPath: filePath);
   }
 
   @override
   Widget build(BuildContext context) {
-    return IconButton(
-      icon: _isPlaying ? Icon(Icons.stop) : Icon(Icons.play_arrow),
-      onPressed: () {
-        if (_isPlaying) {
-          _stop();
-        } else {
-          _play();
-        }
-        setState(() {
-          _isPlaying = !_isPlaying;
-        });
-      },
+    var player = SoundPlayerUI.fromLoader((context) => _loadTrack());
+    return Column(
+      children: [
+        player,
+      ],
     );
   }
 }
-
-
 
 class RecordButton extends StatefulWidget {
   @override
@@ -69,24 +52,32 @@ class _RecordButtonState extends State<RecordButton> {
     if (permissionStatus.isDenied) {
       throw RecordingPermissionException("Microphone permission not granted");
     }
-    await flutterSoundRecorder.startRecorder(toFile: filePath,);
+    await flutterSoundRecorder.startRecorder(
+      toFile: filePath,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    return IconButton(
-      icon: _isRecording ? Icon(Icons.stop) : Icon(Icons.mic_rounded),
-      onPressed: () {
-        if (_isRecording) {
-          _stop();
-        } else {
-          _record();
-        }
+    return GestureDetector(
+      onTapDown: (_) {
+        _record();
+        print("record");
         setState(() {
           _isRecording = !_isRecording;
         });
       },
+      onTapCancel: () {
+        _stop();
+        setState(() {
+          _isRecording = !_isRecording;
+        });
+      },
+      child: IconButton(
+        onPressed: (){},
+        iconSize: 100,
+        icon: _isRecording ? Icon(Icons.stop) : Icon(Icons.mic_rounded),
+      ),
     );
   }
 }
-
