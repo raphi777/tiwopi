@@ -7,7 +7,7 @@ class TiwopiUser {
   int soughtAge;
   String sexualOrientation;
   List<String> interests;
-  String audioFilePath;
+  Future<String> audioFilePath;
 
   TiwopiUser(
       {this.email,

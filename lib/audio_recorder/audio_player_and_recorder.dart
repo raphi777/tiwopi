@@ -11,6 +11,10 @@ class PlaybackButton extends StatefulWidget {
 
 class _PlaybackButtonState extends State<PlaybackButton> {
 
+  void trackValid() {
+    print(_loadTrack().runtimeType);
+  }
+
   Future<Track> _loadTrack() async {
     final directory = await getApplicationDocumentsDirectory();
     final filePath = p.join(directory.path, 'record01');
@@ -76,7 +80,9 @@ class _RecordButtonState extends State<RecordButton> {
       child: IconButton(
         onPressed: (){},
         iconSize: 100,
-        icon: _isRecording ? Icon(Icons.stop) : Icon(Icons.mic_rounded),
+        //icon: _isRecording ? Icon(Icons.stop) : Icon(Icons.mic_rounded),
+        icon: Icon(Icons.mic_rounded),
+        color: _isRecording ? Colors.red : Colors.black,
       ),
     );
   }
