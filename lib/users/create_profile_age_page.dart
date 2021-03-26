@@ -41,7 +41,6 @@ class CreateProfileAgePage extends StatelessWidget {
     final TextEditingController dayController = TextEditingController();
     final TextEditingController monthController = TextEditingController();
     final TextEditingController yearController = TextEditingController();
-    final node = FocusScope.of(context);
 
     return Scaffold(
       appBar: AppBar(
