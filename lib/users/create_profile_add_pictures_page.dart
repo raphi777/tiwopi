@@ -2,6 +2,8 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
+import 'package:tiwopi/authentication/authentication_widget.dart';
+import 'package:tiwopi/users/add_user.dart';
 import 'package:tiwopi/users/tiwopi_user.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -45,6 +47,19 @@ class _CreateProfileAddPicturesPageState
         lockAspectRatio: false,
       );
 
+  bool _picturePicked() {
+    final picturePicked = widget._imagePath.any((element) {
+      if (element != null) {
+        return true;
+      }
+      return false;
+    });
+    if (picturePicked) {
+      return true;
+    }
+    return false;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,7 +80,7 @@ class _CreateProfileAddPicturesPageState
               padding: const EdgeInsets.only(
                   left: 20, top: 5, right: 20, bottom: 20),
               child: Text(
-                "Add at least 2 Pictures to continue.",
+                "Add at least 1 Picture to continue. Your picture will only be shown to users you matched with.",
                 style: TextStyle(fontSize: 15),
               ),
             ),
@@ -172,7 +187,24 @@ class _CreateProfileAddPicturesPageState
             ),
             Padding(
               padding: const EdgeInsets.all(30.0),
-              child: ElevatedButton(onPressed: () {}, child: Text("Continue")),
+              child: ElevatedButton(
+                  onPressed: () {
+                    if (_picturePicked()) {
+                      widget.tiwopiUser.imageFiles = widget._imagePath;
+                      AddUser().addUserToFirebase(widget.tiwopiUser);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => AuthenticationWidget(),
+                        ),
+                      );
+                    }
+                    else {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          content: Text("Pick at least one Picture.")));
+                    }
+                  },
+                  child: Text("Finish")),
             ),
           ],
         ),

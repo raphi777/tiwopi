@@ -1,3 +1,5 @@
+import 'dart:io';
+
 class TiwopiUser {
   String email;
   String name;
@@ -7,7 +9,10 @@ class TiwopiUser {
   int soughtAge;
   String sexualOrientation;
   List<String> interests;
-  Future<String> audioFilePath;
+  String audioFileUrl;
+  List<String> imageFileUrls;
+  File audioFile;
+  List<File> imageFiles;
 
   TiwopiUser(
       {this.email,
@@ -18,5 +23,20 @@ class TiwopiUser {
       this.soughtAge,
       this.sexualOrientation,
       this.interests,
-      this.audioFilePath});
+      this.audioFile,
+      this.imageFiles});
+
+  Map<String, dynamic> toJson() =>
+      {
+        'email': email,
+        'name' : name,
+        'userGender' : ownGender,
+        'soughtGender' : soughtGender,
+        'userBirthday' : ownAge,
+        'soughtAge' : soughtAge,
+        'sexualOrientation' : sexualOrientation,
+        'interests' : interests,
+        'audioFileUrl' : audioFileUrl,
+        'imageFileUrls' : imageFileUrls
+      };
 }
