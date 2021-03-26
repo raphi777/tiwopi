@@ -41,6 +41,7 @@ class CreateProfileAgePage extends StatelessWidget {
     final TextEditingController dayController = TextEditingController();
     final TextEditingController monthController = TextEditingController();
     final TextEditingController yearController = TextEditingController();
+    final node = FocusScope.of(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -72,6 +73,11 @@ class CreateProfileAgePage extends StatelessWidget {
                     inputFormatters: <TextInputFormatter>[
                       FilteringTextInputFormatter.digitsOnly
                     ],
+                    onChanged: (_) {
+                      if (dayController.text.length > 1) {
+                        context.nextEditableTextFocus();
+                      }
+                    },
                   ),
                 ),
                 new Flexible(
@@ -89,6 +95,11 @@ class CreateProfileAgePage extends StatelessWidget {
                     inputFormatters: <TextInputFormatter>[
                       FilteringTextInputFormatter.digitsOnly
                     ],
+                    onChanged: (_) {
+                      if (monthController.text.length > 1) {
+                        context.nextEditableTextFocus();
+                      }
+                    },
                   ),
                 ),
                 new Flexible(
@@ -148,5 +159,13 @@ class CreateProfileAgePage extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+extension Utility on BuildContext {
+  void nextEditableTextFocus() {
+    do {
+      FocusScope.of(this).nextFocus();
+    } while (FocusScope.of(this).focusedChild.context.widget is! EditableText);
   }
 }
