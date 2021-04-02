@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class TiwopiUser {
   String email;
   String name;
@@ -8,9 +10,9 @@ class TiwopiUser {
   DateTime ownAge;
   int soughtAge;
   String sexualOrientation;
-  List<String> interests;
+  List<dynamic> interests;
   String audioFileUrl;
-  List<String> imageFileUrls;
+  List<dynamic> imageFileUrls;
   File audioFile;
   List<File> imageFiles;
 
@@ -39,4 +41,19 @@ class TiwopiUser {
         'audioFileUrl' : audioFileUrl,
         'imageFileUrls' : imageFileUrls
       };
+
+  void fromMap(Map map) {
+    Timestamp time = map['userBirthday'];
+    var ownAge = DateTime.fromMillisecondsSinceEpoch(time.millisecondsSinceEpoch);
+    this.email = map['email'];
+    this.name = map['name'];
+    this.ownGender = map['userGender'];
+    this.soughtGender = map['soughtGender'];
+    this.ownAge = ownAge;
+    this.soughtAge = map['soughtAge'];
+    this.sexualOrientation = map['sexualOrientation'];
+    this.interests = map['interests'];
+    this.audioFileUrl = map['audioFileUrl'];
+    this.imageFileUrls = map['imageFileUrls'];
+  }
 }
