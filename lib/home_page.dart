@@ -4,7 +4,9 @@ import 'package:tiwopi/records/recording_page.dart';
 import 'package:tiwopi/settings/settings_page.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({Key key}) : super(key: key);
+  final int index;
+
+  HomePage({Key key, this.index}) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -12,7 +14,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   PageController _pageController = PageController();
-  List<Widget> _screens = [RecordingPage(), FeedPage(), SettingsPage()];
+  //List<Widget> _screens = [RecordingPage(), FeedPage(0), SettingsPage()];
 
   int _selectedIndex = 0;
 
@@ -33,7 +35,12 @@ class _HomePageState extends State<HomePage> {
       child: Scaffold(
         body: PageView(
           controller: _pageController,
-          children: _screens,
+          //children: _screens,
+          children: [
+            FeedPage(widget.index),
+            RecordingPage(),
+            SettingsPage(),
+          ],
           onPageChanged: _onPageChanged,
           physics: NeverScrollableScrollPhysics(),
         ),
@@ -42,8 +49,8 @@ class _HomePageState extends State<HomePage> {
           onTap: _onItemTapped,
           currentIndex: _selectedIndex,
           items: [
-            BottomNavigationBarItem(icon: Icon(Icons.mic), label: "Record"),
             BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+            BottomNavigationBarItem(icon: Icon(Icons.mic), label: "Record"),
             BottomNavigationBarItem(
                 icon: Icon(Icons.settings), label: "Settings"),
           ],

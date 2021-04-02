@@ -15,7 +15,7 @@ class AuthenticationWidget extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.active) {
           final user = snapshot.data;
-          return user != null ? HomePage() : SignInPage();
+          return user != null ? HomePage(index: 0) : SignInPage();
         }
         return Scaffold(
           appBar: AppBar(
