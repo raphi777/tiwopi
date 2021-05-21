@@ -31,7 +31,7 @@ class CreateProfileAgePage extends StatelessWidget {
       return true;
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Users must me at least 16 years old.")));
+          SnackBar(content: Text("Users must be at least 16 years old.")));
       return false;
     }
   }
