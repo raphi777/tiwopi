@@ -15,6 +15,8 @@ class TiwopiUser {
   List<dynamic> imageFileUrls;
   File audioFile;
   List<File> imageFiles;
+  bool isLiked;
+  bool isSwipedOff;
 
   TiwopiUser(
       {this.email,
@@ -26,7 +28,9 @@ class TiwopiUser {
       this.sexualOrientation,
       this.interests,
       this.audioFile,
-      this.imageFiles});
+      this.imageFiles,
+      this.isLiked = false,
+      this.isSwipedOff = false});
 
   Map<String, dynamic> toJson() =>
       {
@@ -55,5 +59,11 @@ class TiwopiUser {
     this.interests = map['interests'];
     this.audioFileUrl = map['audioFileUrl'];
     this.imageFileUrls = map['imageFileUrls'];
+  }
+
+  int getAge() {
+    DateTime now = new DateTime.now();
+    double age = now.difference(this.ownAge).inDays / 365;
+    return age.toInt();
   }
 }

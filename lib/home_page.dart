@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:tiwopi/feed/feed_page.dart';
 import 'package:tiwopi/records/recording_page.dart';
 import 'package:tiwopi/settings/settings_page.dart';
+import 'package:tiwopi/users/tiwopi_user.dart';
 
 class HomePage extends StatefulWidget {
   final int index;
+  final List<TiwopiUser> shownUsers;
+  final bool usersAreLoaded;
 
-  HomePage({Key key, this.index}) : super(key: key);
+  HomePage({Key key, this.index, this.usersAreLoaded, this.shownUsers}) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
