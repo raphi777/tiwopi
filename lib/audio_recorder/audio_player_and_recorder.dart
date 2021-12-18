@@ -10,7 +10,6 @@ class PlaybackButton extends StatefulWidget {
 }
 
 class _PlaybackButtonState extends State<PlaybackButton> {
-
   void trackValid() {
     print(_loadTrack().runtimeType);
   }
@@ -57,8 +56,7 @@ class _RecordButtonState extends State<RecordButton> {
       throw RecordingPermissionException("Microphone permission not granted");
     }
     await flutterSoundRecorder.startRecorder(
-      toFile: filePath,
-    );
+        toFile: filePath);
   }
 
   @override
@@ -78,7 +76,7 @@ class _RecordButtonState extends State<RecordButton> {
         });
       },
       child: IconButton(
-        onPressed: (){},
+        onPressed: () {},
         iconSize: 100,
         //icon: _isRecording ? Icon(Icons.stop) : Icon(Icons.mic_rounded),
         icon: Icon(Icons.mic_rounded),

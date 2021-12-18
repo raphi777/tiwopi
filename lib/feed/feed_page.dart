@@ -1,9 +1,12 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:tiwopi/feed/feed_play_button.dart';
 import 'package:tiwopi/users/tiwopi_user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_tindercard/flutter_tindercard.dart';
+import 'package:tiwopi/feed/feed_like_button.dart';
+import 'package:tiwopi/feed/feed_dislike_button.dart';
 
 class FeedPage extends StatefulWidget {
   final int index;
@@ -17,7 +20,7 @@ class FeedPage extends StatefulWidget {
 class _FeedPageState extends State<FeedPage>
     with AutomaticKeepAliveClientMixin {
   TiwopiUser user = new TiwopiUser();
-  CardController controller;
+  CardController controller = CardController();
 
   Future<List<TiwopiUser>> _getUsers() async {
     List<TiwopiUser> users = [];
@@ -44,6 +47,8 @@ class _FeedPageState extends State<FeedPage>
 
   @override
   Widget build(BuildContext context) {
+    var height = MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
     super.build(context);
     return Scaffold(
       backgroundColor: Colors.grey.shade300,
@@ -61,67 +66,71 @@ class _FeedPageState extends State<FeedPage>
                   if (snapshot.connectionState == ConnectionState.done) {
                     return Column(
                       children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(12)),
-                          ),
-                          height: MediaQuery.of(context).size.height / 1.7,
-                          child: new TinderSwapCard(
-                            swipeUp: true,
-                            swipeDown: true,
-                            orientation: AmassOrientation.BOTTOM,
-                            totalNum: snapshot.data.length,
-                            stackNum: 2,
-                            maxWidth: MediaQuery.of(context).size.width * 0.9,
-                            maxHeight: MediaQuery.of(context).size.height / 1.6,
-                            minWidth: MediaQuery.of(context).size.width * 0.8,
-                            minHeight: MediaQuery.of(context).size.height / 1.7,
-                            cardBuilder: (context, index) => Stack(
-                              children: [
-                                Card(
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(12)),
-                                  child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(12),
-                                      child: Image.network(
-                                        snapshot.data[index].imageFileUrls[0],
-                                        fit: BoxFit.fill,
-                                      )),
-                                ),
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.only(top: 400, left: 50),
-                                  child: Text(
-                                    snapshot.data[index].name,
-                                    style: TextStyle(fontSize: 30),
-                                  ),
-                                ),
-                              ],
+                        Center(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(12)),
                             ),
-                            cardController: controller = CardController(),
-                            swipeUpdateCallback:
-                                (DragUpdateDetails details, Alignment align) {
-                              // get swiping card's alignment
-                              if (align.x < 0) {
-                              } else if (align.x > 0) {
-                                // card is RIGHT swiping
-                              }
-                            },
-                            swipeCompleteCallback:
-                                (CardSwipeOrientation orientation, int index) {
-                              if (orientation == CardSwipeOrientation.LEFT) {
-                                print("LEFT");
-                                index += 1;
-                                print(index);
-                                print(snapshot.data[index].name);
-                              } else if (orientation ==
-                                  CardSwipeOrientation.RIGHT) {
-                                print("RIGHT");
-                                index += 1;
-                                print(index);
-                                print(snapshot.data[index].name);
-                              }
-                            },
+                            height: MediaQuery.of(context).size.height * 0.75,
+                            child: new TinderSwapCard(
+                              swipeUp: true,
+                              swipeDown: true,
+                              orientation: AmassOrientation.BOTTOM,
+                              totalNum: snapshot.data.length,
+                              stackNum: 2,
+                              cardController: controller,
+                              maxWidth: width,
+                              maxHeight: height,
+                              minWidth: width * 0.99,
+                              minHeight: height * 0.99,
+                              cardBuilder: (context, index) => Stack(
+                                children: [
+                                  Card(
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(12)),
+                                    child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(12),
+                                        child: Image.network(
+                                          snapshot.data[index].imageFileUrls[0],
+                                          fit: BoxFit.fill,
+                                        )),
+                                  ),
+                                  Positioned(
+                                    top: height * 0.68,
+                                    left: width * 0.1,
+                                    child: Text(
+                                      snapshot.data[index].name,
+                                      style: TextStyle(fontSize: 30),
+                                    ),
+                                  ),
+                                  FeedLikeButton(controller),
+                                  FeedPlayButton(controller, snapshot.data[index].audioFileUrl),
+                                  FeedDislikeButton(controller),
+                                ],
+                              ),
+                              swipeUpdateCallback:
+                                  (DragUpdateDetails details, Alignment align) {
+                                // get swiping card's alignment
+                                if (align.x < 0) {
+                                } else if (align.x > 0) {
+                                  // card is RIGHT swiping
+                                }
+                              },
+                              swipeCompleteCallback:
+                                  (CardSwipeOrientation orientation,
+                                      int index) {
+                                if (orientation == CardSwipeOrientation.LEFT) {
+                                  print("LEFT");
+                                  print(index);
+                                } else if (orientation ==
+                                    CardSwipeOrientation.RIGHT) {
+                                  print("RIGHT");
+                                  print(index);
+                                }
+                              },
+                            ),
                           ),
                         ),
                       ],
@@ -139,70 +148,6 @@ class _FeedPageState extends State<FeedPage>
                   }
                   return Container();
                 },
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 8),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(right: 25),
-                      child: RawMaterialButton(
-                        child: Icon(
-                          Icons.close,
-                          size: 50,
-                          color: Colors.white,
-                        ),
-                        shape: CircleBorder(),
-                        fillColor: Colors.grey,
-                        elevation: 2.0,
-                        padding: EdgeInsets.all(10.0),
-                        onPressed: () {
-                          /*int _index;
-                          if (widget.index <= userIdList.length - 2) {
-                            _index = widget.index + 1;
-                          } else {
-                            _index = 0;
-                          }*/
-                          /*Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => HomePage(index: _index),
-                              ),
-                            );*/
-                        },
-                      ),
-                    ),
-                    RawMaterialButton(
-                      child: Icon(
-                        Icons.play_arrow_rounded,
-                        size: 50,
-                        color: Colors.white,
-                      ),
-                      shape: CircleBorder(),
-                      fillColor: Colors.grey,
-                      elevation: 2.0,
-                      padding: EdgeInsets.all(10.0),
-                      onPressed: () {
-                        _play();
-                      },
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 25),
-                      child: RawMaterialButton(
-                        child: Icon(
-                          Icons.favorite,
-                          size: 50,
-                          color: Colors.white,
-                        ),
-                        shape: CircleBorder(),
-                        fillColor: Colors.grey,
-                        elevation: 2.0,
-                        padding: EdgeInsets.all(10.0),
-                      ),
-                    ),
-                  ],
-                ),
               ),
             ],
           ),
