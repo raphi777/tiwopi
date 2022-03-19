@@ -20,7 +20,7 @@ class _CreateProfileAddRecordPageState
     extends State<CreateProfileAddRecordPage> {
   Future<String> _getAudioPath() async {
     final directory = await getApplicationDocumentsDirectory();
-    return p.join(directory.path, 'record01').toString();
+    return p.join(directory.path, 'record01.mp3 ').toString();
   }
 
   @override

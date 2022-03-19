@@ -16,7 +16,7 @@ class _PlaybackButtonState extends State<PlaybackButton> {
 
   Future<Track> _loadTrack() async {
     final directory = await getApplicationDocumentsDirectory();
-    final filePath = p.join(directory.path, 'record01');
+    final filePath = p.join(directory.path, 'record01.mp3');
     return new Track(trackPath: filePath);
   }
 
@@ -46,7 +46,7 @@ class _RecordButtonState extends State<RecordButton> {
 
   void _record() async {
     final directory = await getApplicationDocumentsDirectory();
-    final filePath = p.join(directory.path, 'record01');
+    final filePath = p.join(directory.path, 'record01.mp3');
     print("File Path" + filePath);
 
     flutterSoundRecorder.openAudioSession();
